@@ -16,10 +16,10 @@ void	monitor_philos(t_philo *philos)
 		if (deadman)
 		{
 			set_end_simulation(philos);
-			printf("%ld\t%d died\n", timestamp_from_start(philos), deadman);
+			printf("%ld\t%d died\n", timestamp_from_start(&philos[deadman - 1]), deadman);
 			return ;
 		}
-		ft_sleep(1000);
+		ft_sleep(1);
 	}
 }
 
@@ -29,21 +29,23 @@ int		check_philos_meals(t_philo *philos)
 	int		sated;
 	int		philo_fulled;
 
+	if (philos[0].table->meals_required == -1)
+		return (0);
 	philo_fulled = 0;
 	i = 0;
-	while (i < philos->table->philo_nbr)
+	while (i < philos[0].table->philo_nbr)
 	{
-		pthread_mutex_lock(&philos->table->meal_lock);
+		pthread_mutex_lock(&philos[0].table->meal_lock);
 		if (philos[i].meals_eaten < philos->table->meals_required)
 			sated = 0;
 		else
 			sated = 1;
-		pthread_mutex_unlock(&philos->table->meal_lock);
+		pthread_mutex_unlock(&philos[0].table->meal_lock);
 		if (sated)
 			++philo_fulled;
 		++i;
 	}
-	if (philo_fulled == philos->table->philo_nbr)
+	if (philo_fulled == philos[0].table->philo_nbr)
 		return (1);
 	return (0);
 }
@@ -53,7 +55,7 @@ int		check_philos_death(t_philo *philos)
 	int		i;
 
 	i = 0;
-	while (i < philos->table->philo_nbr)
+	while (i < philos[0].table->philo_nbr)
 	{
 		if (!philo_sated(&philos[i]))
 		{
@@ -69,6 +71,8 @@ int		philo_sated(t_philo *philo)
 {
 	int		sated;
 
+	if (philo->table->meals_required == -1)
+		return (0);
 	pthread_mutex_lock(&philo->table->meal_lock);
 	if (philo->meals_eaten < philo->table->meals_required)
 		sated = 0;
@@ -84,7 +88,7 @@ int		philo_starving(t_philo *philo)
 	long		current_time;
 
 	pthread_mutex_lock(&philo->table->death_lock);
-	current_time = now_ms();
+	current_time = timestamp_from_start(philo); 
 	if (philo->table->time_to_die < current_time - philo->last_meal_time)
 		dead = 1;
 	else

@@ -5,8 +5,11 @@ void	*philo_routine(void *philo_ptr)
 	t_philo		*philo;
 
 	philo = (t_philo *)philo_ptr;
-	if (philo->id % 2 == 0)
-		ft_sleep(1000);
+	if (philo->table->philo_nbr == 1)
+	{
+		only_one_philo(philo);
+		return (NULL);
+	}
 	while (simulation_running(philo))
 	{
 		eat(philo);
@@ -48,8 +51,8 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->table->meal_lock);
 	++philo->meals_eaten;
 	pthread_mutex_unlock(&philo->table->meal_lock);
-	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	sleepx(t_philo *philo)
@@ -79,6 +82,8 @@ int		check_meal(t_philo *philo)
 {
 	int		sated;
 
+	if (philo->table->meals_required == -1)
+		return (0);
 	pthread_mutex_lock(&philo->table->meal_lock);
 	if (philo->meals_eaten < philo->table->meals_required)
 		sated = 0;
@@ -86,4 +91,16 @@ int		check_meal(t_philo *philo)
 		sated = 1;
 	pthread_mutex_unlock(&philo->table->meal_lock);
 	return (sated);
+}
+
+void	only_one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	print_fork(philo);
+	pthread_mutex_unlock(philo->left_fork);
+	ft_sleep(philo->table->time_to_die);
+	pthread_mutex_lock(&philo->table->print_mutex);
+	printf("%ld\t%d died\n", timestamp_from_start(philo), philo->id);
+	pthread_mutex_unlock(&philo->table->print_mutex);
+	set_end_simulation(philo);
 }

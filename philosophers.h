@@ -60,6 +60,7 @@ void	sleepx(t_philo *philo);
 void	think(t_philo *philo);
 int		simulation_running(t_philo *philo);
 int		check_meal(t_philo *philo);
+void	only_one_philo(t_philo *philo);
 
 long	timestamp_from_start(t_philo *philo);
 long	now_ms(void);
