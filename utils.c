@@ -22,7 +22,7 @@ void	ft_sleep(long ms)
 
 	start = now_ms();
 	while (now_ms() - start < ms)
-		usleep(100);
+		usleep(200);
 }
 
 void	set_end_simulation(t_philo *philo)

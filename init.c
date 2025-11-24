@@ -38,7 +38,7 @@ int		init_table(t_table *table, int argc, char **argv)
 	return (0);
 }
 
-/*int		init_philos(t_table *table, t_philo **philos)
+int		init_philos(t_table *table, t_philo **philos)
 {
 	int		i;
 
@@ -61,45 +61,6 @@ int		init_table(t_table *table, int argc, char **argv)
 		}
 		(*philos)[i].table = table;
 		++i;
-	}
-	return (0);
-}*/
-
-int	init_philos(t_table *table, t_philo **philos)
-{
-	int	i;
-
-	*philos = malloc(sizeof(t_philo) * table->philo_nbr);
-	if (!*philos)
-		return (1);
-
-	memset(*philos, 0, sizeof(t_philo) * table->philo_nbr);
-
-	i = 0;
-	while (i < table->philo_nbr)
-	{
-		(*philos)[i].id = i + 1;
-        (*philos)[i].table = table;
-        (*philos)[i].last_meal_time = table->start_time;
-        (*philos)[i].meals_eaten = 0;
-
-		// fourchettes
-		pthread_mutex_t *left  = &table->forks[i];
-		pthread_mutex_t *right = &table->forks[(i + 1) % table->philo_nbr];
-
-		// inversion gauche/droite pour les impairs
-		if (i % 2 == 1)
-		{
-			(*philos)[i].left_fork  = right;
-			(*philos)[i].right_fork = left;
-		}
-		else
-		{
-			(*philos)[i].left_fork  = left;
-			(*philos)[i].right_fork = right;
-		}
-
-		i++;
 	}
 	return (0);
 }
