@@ -46,7 +46,8 @@ int		check_philos_death(t_philo *philos);
 int		philo_sated(t_philo *philo);
 int		philo_starving(t_philo *philo);
 
-void	print_fork(t_philo *philo);
+void	print_fork(t_philo *philo, long now);
+//void	print_fork(t_philo *philo);
 void	print_meal(t_philo *philo, long meal_time);
 //void	print_sleep(t_philo *philo);
 //void	print_think(t_philo *philo);

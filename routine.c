@@ -86,14 +86,13 @@ void	eat(t_philo *philo, long now)
 {
 	long	meal_time;
 
-	(void)now;
 	pthread_mutex_lock(philo->left_fork);
 	if (!simulation_running(philo))
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		return ;
 	}
-	print_fork(philo);
+	print_fork(philo, now);
 	pthread_mutex_lock(philo->right_fork);
 	if (!simulation_running(philo))
 	{
@@ -101,7 +100,7 @@ void	eat(t_philo *philo, long now)
 		pthread_mutex_unlock(philo->right_fork);
 		return ;
 	}
-	print_fork(philo);
+	print_fork(philo, now);
 	meal_time = timestamp_from_start(philo);
 	print_meal(philo, meal_time);
 	pthread_mutex_lock(&philo->table->death_lock);
@@ -180,8 +179,11 @@ int		check_meal(t_philo *philo)
 
 void	only_one_philo(t_philo *philo)
 {
+	long	now;
+
 	pthread_mutex_lock(philo->left_fork);
-	print_fork(philo);
+	now = now_ms();
+	print_fork(philo, now);
 	pthread_mutex_unlock(philo->left_fork);
 	ft_sleep(philo->table->time_to_die);
 	pthread_mutex_lock(&philo->table->print_mutex);
