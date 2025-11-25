@@ -22,25 +22,8 @@ void	ft_sleep(long ms)
 
 	start = now_ms();
 	while (now_ms() - start < ms)
-		usleep(1000);
+		usleep(500);
 }
-
-/*void	ft_sleep(long ms)
-{
-	long	start;
-	long	elapsed;
-
-	start = now_ms();
-	elapsed = 0;
-	while (elapsed < ms)
-	{
-		if ((ms - elapsed) > 10)
-			usleep(1000);
-		else
-			usleep(200);
-		elapsed = now_ms() - start;
-	}
-}*/
 
 void	set_end_simulation(t_philo *philo)
 {

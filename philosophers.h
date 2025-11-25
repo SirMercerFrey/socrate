@@ -16,8 +16,7 @@ typedef struct	s_table
 	long					time_to_eat;
 	long					time_to_sleep;
 	int						meals_required;
-//	int						stop_simulation;
-	_Atomic int				stop_simulation;
+	int						stop_simulation;
 	long					start_time;
 	pthread_mutex_t			*forks;
 	pthread_mutex_t			print_mutex;
@@ -46,25 +45,19 @@ int		check_philos_death(t_philo *philos);
 int		philo_sated(t_philo *philo);
 int		philo_starving(t_philo *philo);
 
-void	print_fork(t_philo *philo, long now);
-//void	print_fork(t_philo *philo);
+void	print_fork(t_philo *philo);
 void	print_meal(t_philo *philo, long meal_time);
-//void	print_sleep(t_philo *philo);
-//void	print_think(t_philo *philo);
-void	print_sleep(t_philo *philo, long now);
-void	print_think(t_philo *philo, long now);
+void	print_sleep(t_philo *philo);
+void	print_think(t_philo *philo);
 
 int	check_args(int argc, char **argv);
 int	check_atoi(char *str);
 int	check_atol(char *str);
 
 void	*philo_routine(void *philo_ptr);
-//void	eat(t_philo *philo);
-//void	sleepx(t_philo *philo);
-//void	think(t_philo *philo);
-void	eat(t_philo *philo, long now);
-void	sleepx(t_philo *philo, long now);
-void	think(t_philo *philo, long now);
+void	eat(t_philo *philo);
+void	sleepx(t_philo *philo);
+void	think(t_philo *philo);
 int		simulation_running(t_philo *philo);
 int		check_meal(t_philo *philo);
 void	only_one_philo(t_philo *philo);

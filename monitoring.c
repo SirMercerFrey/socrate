@@ -23,7 +23,6 @@ void	monitor_philos(t_philo *philos)
 			pthread_mutex_unlock(&philos->table->print_mutex);
 			return ;
 		}
-//		ft_sleep(1);
 		usleep(1000);
 	}
 }
@@ -89,15 +88,15 @@ int		philo_sated(t_philo *philo)
 
 int		philo_starving(t_philo *philo)
 {
-	int			dead;
 	long		current_time;
 
 	pthread_mutex_lock(&philo->table->death_lock);
-	current_time = timestamp_from_start(philo); 
-	if (philo->table->time_to_die < current_time - philo->last_meal_time)
-		dead = 1;
-	else
-		dead = 0;
+	current_time = now_ms();
+	if (current_time - philo->last_meal_time >= philo->table->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->table->death_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(&philo->table->death_lock);
-	return (dead);
+	return (0);
 }
