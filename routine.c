@@ -60,11 +60,18 @@ void	sleepx(t_philo *philo)
 
 void	think(t_philo *philo)
 {
+	long	die;
+	long	eat;
+	long	sleep;
+
+	die = philo->table->time_to_die;
+	eat = philo->table->time_to_eat;
+	sleep = philo->table->time_to_sleep;
 	print_think(philo);
 	if (philo->id % 2 == 0)
 	{
-		//usleep(50);
-		ft_sleep(philo->table->time_to_eat / 10);
+		if (die - eat - sleep > 50)
+			ft_sleep(philo->table->time_to_eat / 10);
 	}
 }
 
