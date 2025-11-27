@@ -31,7 +31,7 @@ all : $(NAME)
 
 $(OBJ_DIR) :
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(GRAY)Creating object directory...$(RESET)"
+	@echo "$(GREY)Creating object directory...$(RESET)"
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -I./include -c $< -o $@
