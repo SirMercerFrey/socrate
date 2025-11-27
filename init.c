@@ -26,7 +26,12 @@ int		init_table(t_table *table, int argc, char **argv)
 	while (i < table->philo_nbr)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+		{
+			while (i--)
+				pthread_mutex_destroy(&table->forks[i]);
+			free(table->forks);
 			return (1);
+		}
 		++i;
 	}
 	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)

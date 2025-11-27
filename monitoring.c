@@ -23,7 +23,7 @@ void	monitor_philos(t_philo *philos)
 			pthread_mutex_unlock(&philos->table->print_mutex);
 			return ;
 		}
-		usleep(1000);
+		usleep(500);
 	}
 }
 

@@ -58,7 +58,7 @@ void	sleepx(t_philo *philo)
 	ft_sleep(philo->table->time_to_sleep);
 }
 
-void	think(t_philo *philo)
+/*void	think(t_philo *philo)
 {
 	long	die;
 	long	eat;
@@ -73,6 +73,36 @@ void	think(t_philo *philo)
 		if (die - eat - sleep > 50)
 			ft_sleep(philo->table->time_to_eat / 10);
 	}
+}*/
+
+void	think(t_philo *philo)
+{
+	long	time_since_last;
+	long	time_to_die;
+	long	time_to_eat;
+	long	remaining;
+
+	print_think(philo);
+
+	// On récupère les paramètres
+	time_to_die = philo->table->time_to_die;
+	time_to_eat = philo->table->time_to_eat;
+
+	// Depuis combien de temps le philo n’a pas mangé
+	pthread_mutex_lock(&philo->table->death_lock);
+	time_since_last = now_ms() - philo->last_meal_time;
+	pthread_mutex_unlock(&philo->table->death_lock);
+
+	// Temps restant avant la mort si il ne mange pas immédiatement
+	remaining = time_to_die - time_since_last - time_to_eat;
+
+	// Si remaining très faible → ne pas dormir du tout
+	if (remaining <= 0)
+		return;
+
+	// On dort un petit pourcentage du remaining (10% est généralement safe)
+	if (remaining > 10)
+		ft_sleep(remaining / 10);
 }
 
 
