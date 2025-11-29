@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:27:17 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:31:22 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	*philo_routine(void *philo_ptr)
@@ -61,16 +73,20 @@ void	sleepx(t_philo *philo)
 void	think(t_philo *philo)
 {
 	long	time_since_last;
+	long	time_to_die;
+	long	time_to_eat;
 	long	remaining;
-	long 	nap;
+	long	nap;
 
 	print_think(philo);
 	pthread_mutex_lock(&philo->table->death_lock);
 	time_since_last = now_ms() - philo->last_meal_time;
 	pthread_mutex_unlock(&philo->table->death_lock);
-	remaining = philo->table->time_to_die - time_since_last - philo->table->time_to_eat;
+	time_to_die = philo->table->time_to_die;
+	time_to_eat = philo->table->time_to_eat;
+	remaining = time_to_die - time_since_last - time_to_eat;
 	if (remaining <= 0)
-		return;
+		return ;
 	nap = remaining / 10;
 	if (nap < 1)
 		nap = 1;

@@ -1,25 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:32:44 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:38:36 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	monitor_philos(t_philo *philos)
 {
-	int		deadman;
+	int		dm;
 
+	if (philos->table->philo_nbr == 1)
+		return ;
 	while (simulation_running(philos))
 	{
 		if (check_philos_meals(philos))
 		{
 			set_end_simulation(philos);
 			pthread_mutex_lock(&philos->table->print_mutex);
-			printf("J'ai bien mange et j'ai bien bu, merci petit Jesus\n");
+			printf("J'ai bien mange et j'ai bien bu, merci petit Jesus.\n");
 			pthread_mutex_unlock(&philos->table->print_mutex);
 			return ;
 		}
-		deadman = check_philos_death(philos);
-		if (deadman)
+		dm = check_philos_death(philos);
+		if (dm)
 		{
 			set_end_simulation(philos);
 			pthread_mutex_lock(&philos->table->print_mutex);
-			printf("%ld\t%d died\n", timestamp_from_start(&philos[deadman - 1]), deadman);
+			printf("%ld\t%d died\n", timestamp_from_start(&philos[dm - 1]), dm);
 			pthread_mutex_unlock(&philos->table->print_mutex);
 			return ;
 		}
@@ -27,7 +41,7 @@ void	monitor_philos(t_philo *philos)
 	}
 }
 
-int		check_philos_meals(t_philo *philos)
+int	check_philos_meals(t_philo *philos)
 {
 	int		i;
 	int		sated;
@@ -54,7 +68,7 @@ int		check_philos_meals(t_philo *philos)
 	return (0);
 }
 
-int		check_philos_death(t_philo *philos)
+int	check_philos_death(t_philo *philos)
 {
 	int		i;
 
@@ -71,7 +85,7 @@ int		check_philos_death(t_philo *philos)
 	return (0);
 }
 
-int		philo_sated(t_philo *philo)
+int	philo_sated(t_philo *philo)
 {
 	int		sated;
 
@@ -86,7 +100,7 @@ int		philo_sated(t_philo *philo)
 	return (sated);
 }
 
-int		philo_starving(t_philo *philo)
+int	philo_starving(t_philo *philo)
 {
 	long		current_time;
 

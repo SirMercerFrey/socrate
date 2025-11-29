@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_table.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:18:20 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:20:35 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	sub_init_table(t_table *table, int argc, char **argv)
@@ -14,7 +26,7 @@ void	sub_init_table(t_table *table, int argc, char **argv)
 	table->start_time = now_ms();
 }
 
-int		init_table(t_table *table, int argc, char **argv)
+int	init_table(t_table *table, int argc, char **argv)
 {
 	int		i;
 
@@ -43,14 +55,14 @@ int		init_table(t_table *table, int argc, char **argv)
 	return (0);
 }
 
-int		init_philos(t_table *table, t_philo **philos)
+int	init_philos(t_table *table, t_philo **philos)
 {
 	int		i;
 
 	*philos = malloc(sizeof(t_philo) * table->philo_nbr);
 	if (!*philos)
 		return (1);
-	memset(*philos, 0, sizeof(t_philo) * table->philo_nbr);	
+	memset(*philos, 0, sizeof(t_philo) * table->philo_nbr);
 	i = 0;
 	while (i < table->philo_nbr)
 	{

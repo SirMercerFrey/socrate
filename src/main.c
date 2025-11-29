@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:21:00 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:24:58 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_table		table;
 	t_philo		*philos;
@@ -8,7 +20,7 @@ int		main(int argc, char **argv)
 
 	if (!check_args(argc, argv))
 		return (1);
-	if (init_table(&table, argc, argv) != 0 || init_philos(&table, &philos) != 0)
+	if (init_table(&table, argc, argv) || init_philos(&table, &philos))
 		return (1);
 	i = 0;
 	while (i < table.philo_nbr)

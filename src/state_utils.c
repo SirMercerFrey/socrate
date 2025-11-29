@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   state_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:31:50 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:32:08 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-int		simulation_running(t_philo *philo)
+int	simulation_running(t_philo *philo)
 {
 	int		running;
 
@@ -10,7 +22,7 @@ int		simulation_running(t_philo *philo)
 	return (running);
 }
 
-int		check_meal(t_philo *philo)
+int	check_meal(t_philo *philo)
 {
 	int		sated;
 

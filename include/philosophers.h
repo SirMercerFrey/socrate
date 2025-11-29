@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 18:12:27 by mcharret          #+#    #+#             */
+/*   Updated: 2025/11/29 18:15:20 by mcharret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
@@ -9,7 +21,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct	s_table
+typedef struct s_table
 {
 	int						philo_nbr;
 	long					time_to_die;
@@ -22,9 +34,9 @@ typedef struct	s_table
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			death_lock;
 	pthread_mutex_t			meal_lock;
-} t_table;
+}	t_table;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int						id;
 	long					last_meal_time;
@@ -33,7 +45,7 @@ typedef struct	s_philo
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	t_table					*table;
-} t_philo;	
+}	t_philo;	
 
 void	sub_init_table(t_table *table, int argc, char **argv);
 int		init_table(t_table *table, int argc, char **argv);
@@ -50,9 +62,9 @@ void	print_meal(t_philo *philo, long meal_time);
 void	print_sleep(t_philo *philo);
 void	print_think(t_philo *philo);
 
-int	check_args(int argc, char **argv);
-int	check_atoi(char *str);
-int	check_atol(char *str);
+int		check_args(int argc, char **argv);
+int		check_atoi(char *str);
+int		check_atol(char *str);
 
 void	*philo_routine(void *philo_ptr);
 void	eat(t_philo *philo);
