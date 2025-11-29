@@ -6,7 +6,7 @@
 /*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 18:12:27 by mcharret          #+#    #+#             */
-/*   Updated: 2025/11/29 18:15:20 by mcharret         ###   ########.fr       */
+/*   Updated: 2025/11/29 18:44:16 by mcharret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,18 @@ typedef struct s_philo
 void	sub_init_table(t_table *table, int argc, char **argv);
 int		init_table(t_table *table, int argc, char **argv);
 int		init_philos(t_table *table, t_philo **philos);
-
 void	monitor_philos(t_philo *philos);
 int		check_philos_meals(t_philo *philos);
 int		check_philos_death(t_philo *philos);
 int		philo_sated(t_philo *philo);
 int		philo_starving(t_philo *philo);
-
 void	print_fork(t_philo *philo);
 void	print_meal(t_philo *philo, long meal_time);
 void	print_sleep(t_philo *philo);
 void	print_think(t_philo *philo);
-
 int		check_args(int argc, char **argv);
 int		check_atoi(char *str);
 int		check_atol(char *str);
-
 void	*philo_routine(void *philo_ptr);
 void	eat(t_philo *philo);
 void	sleepx(t_philo *philo);
@@ -73,7 +69,6 @@ void	think(t_philo *philo);
 int		simulation_running(t_philo *philo);
 int		check_meal(t_philo *philo);
 void	only_one_philo(t_philo *philo);
-
 long	timestamp_from_start(t_philo *philo);
 long	now_ms(void);
 void	ft_sleep(long ms);
@@ -81,7 +76,6 @@ void	set_end_simulation(t_philo *philo);
 int		is_space(char c);
 int		ft_atoi(char *str);
 long	ft_atol(char *str);
-
 void	free_all(t_philo *philos, t_table *table);
 
 #endif
